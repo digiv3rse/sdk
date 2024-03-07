@@ -1,0 +1,2 @@
+export * from "../../../dist/declarations/src/storage/mmkv";
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGlnaXYzcnNlLXJlYWN0LW5hdGl2ZS1zdG9yYWdlLW1ta3YuY2pzLmQudHMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9kaXN0L2RlY2xhcmF0aW9ucy9zcmMvc3RvcmFnZS9tbWt2LmQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEifQ==

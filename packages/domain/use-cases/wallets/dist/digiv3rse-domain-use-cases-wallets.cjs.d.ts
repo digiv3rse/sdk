@@ -1,0 +1,2 @@
+export * from "../../../dist/declarations/src/use-cases/wallets/index";
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGlnaXYzcnNlLWRvbWFpbi11c2UtY2FzZXMtd2FsbGV0cy5janMuZC50cyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL2Rpc3QvZGVjbGFyYXRpb25zL3NyYy91c2UtY2FzZXMvd2FsbGV0cy9pbmRleC5kLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBIn0=
