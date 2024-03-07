@@ -1,0 +1,24 @@
+{
+  "eslint.workingDirectories": [
+    "examples/nextjs",
+    "examples/node",
+    "examples/react-native",
+    "examples/shared",
+    "examples/web",
+    "packages/api-bindings",
+    "packages/blockchain-bindings",
+    "packages/client",
+    "packages/domain",
+    "packages/eslint-config",
+    "packages/gated-content",
+    "packages/metadata",
+    "packages/prettier-config",
+    "packages/react",
+    "packages/react-native",
+    "packages/react-web",
+    "packages/shared-kernel",
+    "packages/storage",
+    "packages/tsconfig",
+    "packages/wagmi"
+  ]
+}

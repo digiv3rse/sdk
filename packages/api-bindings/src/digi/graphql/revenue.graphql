@@ -1,0 +1,75 @@
+fragment RevenueAggregate on RevenueAggregate {
+  __typename
+  total {
+    ...Amount
+  }
+}
+
+fragment PublicationRevenue on PublicationRevenue {
+  __typename
+  publication {
+    ... on Post {
+      ...Post
+    }
+    ... on Mirror {
+      ...Mirror
+    }
+    ... on Comment {
+      ...Comment
+    }
+    ... on Quote {
+      ...Quote
+    }
+  }
+  revenue {
+    ...RevenueAggregate
+  }
+}
+
+query RevenueFromPublications(
+  $for: ProfileId!
+  $publishedOn: [AppId!]
+  $limit: LimitType
+  $cursor: Cursor
+  $imageSmallSize: ImageTransform!
+  $imageMediumSize: ImageTransform!
+  $profileCoverSize: ImageTransform!
+  $profilePictureSize: ImageTransform!
+  $statsFor: [AppId!]!
+  $fxRateFor: SupportedFiatType!
+  $profileMetadataSource: AppId
+) {
+  result: revenueFromPublications(
+    request: { for: $for, publishedOn: $publishedOn, limit: $limit, cursor: $cursor }
+  ) {
+    items {
+      ...PublicationRevenue
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}
+
+query RevenueFromPublication(
+  $request: RevenueFromPublicationRequest!
+  $imageSmallSize: ImageTransform!
+  $imageMediumSize: ImageTransform!
+  $profileCoverSize: ImageTransform!
+  $profilePictureSize: ImageTransform!
+  $statsFor: [AppId!]!
+  $fxRateFor: SupportedFiatType!
+  $profileMetadataSource: AppId
+) {
+  result: revenueFromPublication(request: $request) {
+    ...PublicationRevenue
+  }
+}
+
+query FollowRevenues($request: FollowRevenueRequest!, $fxRateFor: SupportedFiatType!) {
+  result: followRevenues(request: $request) {
+    revenues {
+      ...RevenueAggregate
+    }
+  }
+}

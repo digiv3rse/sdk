@@ -1,0 +1,71 @@
+fragment AuthChallenge on AuthChallengeResult {
+  __typename
+  id
+  text
+}
+
+fragment ApprovedAuthentication on ApprovedAuthentication {
+  __typename
+  authorizationId
+  browser
+  device
+  os
+  origin
+  expiresAt
+  createdAt
+  updatedAt
+}
+
+query AuthChallenge($request: ChallengeRequest!) {
+  result: challenge(request: $request) {
+    ...AuthChallenge
+  }
+}
+
+query AuthVerify($request: VerifyRequest!) {
+  result: verify(request: $request)
+}
+
+query CurrentSession {
+  result: currentSession {
+    ...ApprovedAuthentication
+  }
+}
+
+query ApprovedAuthentications($request: ApprovedAuthenticationRequest!) {
+  result: approvedAuthentications(request: $request) {
+    items {
+      ...ApprovedAuthentication
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}
+
+mutation AuthAuthenticate($request: SignedAuthChallenge!) {
+  result: authenticate(request: $request) {
+    accessToken
+    refreshToken
+  }
+}
+
+mutation AuthRefresh($request: RefreshRequest!) {
+  result: refresh(request: $request) {
+    accessToken
+    refreshToken
+  }
+}
+
+mutation WalletAuthenticationToProfileAuthentication(
+  $request: WalletAuthenticationToProfileAuthenticationRequest!
+) {
+  result: walletAuthenticationToProfileAuthentication(request: $request) {
+    accessToken
+    refreshToken
+  }
+}
+
+mutation RevokeAuthentication($request: RevokeAuthenticationRequest!) {
+  revokeAuthentication(request: $request)
+}

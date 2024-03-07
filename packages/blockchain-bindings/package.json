@@ -1,0 +1,80 @@
+{
+  "name": "@digiv3rse/blockchain-bindings",
+  "version": "0.10.0-alpha.24",
+  "description": "Utilities for interacting with the blockchain.",
+  "repository": {
+    "directory": "packages/blockchain-bindings",
+    "type": "git",
+    "url": "git://github.com/digiv3rse/sdk.git"
+  },
+  "main": "dist/digiv3rse-blockchain-bindings.cjs.js",
+  "module": "dist/digiv3rse-blockchain-bindings.esm.js",
+  "exports": {
+    ".": {
+      "module": "./dist/digiv3rse-blockchain-bindings.esm.js",
+      "default": "./dist/digiv3rse-blockchain-bindings.cjs.js"
+    },
+    "./mocks": {
+      "module": "./mocks/dist/digiv3rse-blockchain-bindings-mocks.esm.js",
+      "default": "./mocks/dist/digiv3rse-blockchain-bindings-mocks.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist/**/*",
+    "mocks"
+  ],
+  "scripts": {
+    "build": "preconstruct build",
+    "test": "jest",
+    "eslint:fix": "pnpm run eslint --fix",
+    "eslint": "eslint src",
+    "lint": "pnpm run prettier && pnpm run eslint && pnpm run tsc",
+    "lint:fix": "pnpm run prettier:fix && pnpm run eslint:fix && pnpm run tsc",
+    "prettier:fix": "prettier --write .",
+    "prettier": "prettier --check .",
+    "tsc": "tsc --noEmit",
+    "typechain": "typechain --target ethers-v5 --out-dir ./src/types './src/abi/*.json'"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/abstract-signer": "^5.7.0",
+    "@ethersproject/contracts": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
+    "@ethersproject/units": "^5.7.0",
+    "@digiv3rse/domain": "workspace:*",
+    "@digiv3rse/shared-kernel": "workspace:*",
+    "ethers": "^5.7.2",
+    "tslib": "^2.6.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@digiv3rse/eslint-config": "workspace:*",
+    "@digiv3rse/prettier-config": "workspace:*",
+    "@digiv3rse/tsconfig": "workspace:*",
+    "@types/jest": "^29.5.10",
+    "eslint": "^8.54.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "typechain": "^8.3.2",
+    "typescript": "5.2.2"
+  },
+  "prettier": "@digiv3rse/prettier-config",
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-typescript"
+    ]
+  },
+  "preconstruct": {
+    "entrypoints": [
+      "index.ts",
+      "mocks.ts"
+    ],
+    "exports": true
+  }
+}

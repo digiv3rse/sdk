@@ -1,0 +1,4 @@
+{
+  "main": "dist/digiv3rse-storage-mocks.cjs.js",
+  "module": "dist/digiv3rse-storage-mocks.esm.js"
+}

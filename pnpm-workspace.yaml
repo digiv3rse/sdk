@@ -1,0 +1,6 @@
+packages:
+  - "packages/*"
+  - "examples/web"
+  - "examples/shared"
+  - "examples/next-js"
+  - "examples/node"

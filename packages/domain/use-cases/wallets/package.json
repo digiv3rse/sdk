@@ -1,0 +1,4 @@
+{
+  "main": "dist/digiv3rse-domain-use-cases-wallets.cjs.js",
+  "module": "dist/digiv3rse-domain-use-cases-wallets.esm.js"
+}

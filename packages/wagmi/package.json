@@ -1,0 +1,75 @@
+{
+  "name": "@digiv3rse/wagmi",
+  "version": "0.2.0",
+  "description": "wagmi bindings for @digiv3rse/react",
+  "repository": {
+    "directory": "packages/wagmi",
+    "type": "git",
+    "url": "git://github.com/digiv3rse/sdk.git"
+  },
+  "main": "dist/digiv3rse-wagmi.cjs.js",
+  "module": "dist/digiv3rse-wagmi.esm.js",
+  "exports": {
+    ".": {
+      "module": "./dist/digiv3rse-wagmi.esm.js",
+      "default": "./dist/digiv3rse-wagmi.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "preconstruct build",
+    "eslint:fix": "pnpm run eslint --fix",
+    "eslint": "eslint src",
+    "lint": "pnpm run prettier && pnpm run eslint && pnpm run tsc",
+    "lint:fix": "pnpm run prettier:fix && pnpm run eslint:fix && pnpm run tsc",
+    "prettier:fix": "prettier --write .",
+    "prettier": "prettier --check .",
+    "tsc": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@ethersproject/providers": "^5.7.2",
+    "@digiv3rse/shared-kernel": "workspace:*"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@digiv3rse/eslint-config": "workspace:*",
+    "@digiv3rse/prettier-config": "workspace:*",
+    "@digiv3rse/react-web": "workspace:*",
+    "@digiv3rse/tsconfig": "workspace:*",
+    "@tanstack/react-query": "^5.18.1",
+    "@types/node": "^18.18.12",
+    "@types/react": "^18.2.38",
+    "prettier": "^2.8.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "5.2.2",
+    "viem": "^2.7.6",
+    "wagmi": "^2.5.6"
+  },
+  "peerDependencies": {
+    "@digiv3rse/react-web": "workspace:*",
+    "@tanstack/react-query": ">=5.0.0",
+    "viem": "2.x",
+    "wagmi": "^2.5.6"
+  },
+  "prettier": "@digiv3rse/prettier-config",
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-typescript"
+    ]
+  },
+  "preconstruct": {
+    "entrypoints": [
+      "index.ts"
+    ],
+    "exports": true
+  }
+}

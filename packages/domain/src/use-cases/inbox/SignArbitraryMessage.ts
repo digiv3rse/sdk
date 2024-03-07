@@ -1,0 +1,31 @@
+import { Result } from '@digiv3rse/shared-kernel';
+
+import {
+  PendingSigningRequestError,
+  Signature,
+  UserRejectedError,
+  WalletConnectionError,
+} from '../../entities';
+import { ActiveWallet } from '../authentication';
+
+type SignMessageResult = Result<
+  Signature,
+  PendingSigningRequestError | UserRejectedError | WalletConnectionError
+>;
+
+interface ISignArbitraryMessagePresenter {
+  present(result: SignMessageResult): void;
+}
+
+export class SignArbitraryMessage {
+  constructor(
+    private readonly activeWallet: ActiveWallet,
+    private readonly presenter: ISignArbitraryMessagePresenter,
+  ) {}
+
+  async execute(request: string): Promise<void> {
+    const wallet = await this.activeWallet.requireActiveWallet();
+    const result = await wallet.signMessage(request);
+    this.presenter.present(result);
+  }
+}

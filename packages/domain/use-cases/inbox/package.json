@@ -1,0 +1,4 @@
+{
+  "main": "dist/digiv3rse-domain-use-cases-inbox.cjs.js",
+  "module": "dist/digiv3rse-domain-use-cases-inbox.esm.js"
+}

@@ -1,0 +1,4 @@
+{
+  "main": "dist/digiv3rse-domain-entities.cjs.js",
+  "module": "dist/digiv3rse-domain-entities.esm.js"
+}

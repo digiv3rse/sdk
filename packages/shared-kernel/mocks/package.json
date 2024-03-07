@@ -1,0 +1,4 @@
+{
+  "main": "dist/digiv3rse-shared-kernel-mocks.cjs.js",
+  "module": "dist/digiv3rse-shared-kernel-mocks.esm.js"
+}

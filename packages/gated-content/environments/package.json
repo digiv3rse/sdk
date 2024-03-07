@@ -1,0 +1,4 @@
+{
+  "main": "dist/digiv3rse-gated-content-environments.cjs.js",
+  "module": "dist/digiv3rse-gated-content-environments.esm.js"
+}

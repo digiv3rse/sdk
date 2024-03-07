@@ -1,0 +1,47 @@
+query ExplorePublications(
+  $request: ExplorePublicationRequest!
+  $publicationImageSmallTransform: ImageTransform!
+  $publicationImageMediumTransform: ImageTransform!
+  $publicationOperationsActedArgs: PublicationOperationsActedArgs
+  $publicationStatsInput: PublicationStatsInput!
+  $publicationStatsCountOpenActionArgs: PublicationStatsCountOpenActionArgs!
+  $profileCoverTransform: ImageTransform!
+  $profilePictureTransform: ImageTransform!
+  $profileStatsArg: ProfileStatsArg
+  $profileStatsCountOpenActionArgs: ProfileStatsCountOpenActionArgs
+  $profileMetadataSource: AppId = null
+  $rateRequest: RateRequest!
+) {
+  result: explorePublications(request: $request) {
+    items {
+      ... on Post {
+        ...Post
+      }
+      ... on Quote {
+        ...Quote
+      }
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}
+
+query ExploreProfiles(
+  $request: ExploreProfilesRequest!
+  $profileCoverTransform: ImageTransform!
+  $profilePictureTransform: ImageTransform!
+  $profileStatsArg: ProfileStatsArg
+  $profileStatsCountOpenActionArgs: ProfileStatsCountOpenActionArgs
+  $profileMetadataSource: AppId = null
+  $rateRequest: RateRequest!
+) {
+  result: exploreProfiles(request: $request) {
+    items {
+      ...Profile
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

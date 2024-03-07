@@ -1,0 +1,101 @@
+overwrite: true
+hooks:
+  afterAllFileWrite:
+    - prettier --write
+    - eslint --fix
+
+watch: false
+config:
+  gqlImport: graphql-tag
+  avoidOptionals:
+    field: true
+
+generates:
+  src/digi/graphql/generated.ts:
+    config:
+      strictScalars: true
+      scalars:
+        ABIJson: string
+        AppId: AppId
+        BlockchainData: string
+        BroadcastId: string
+        ChainId: number
+        ChallengeId: string
+        ContentEncryptionKey: ContentEncryptionKey
+        CreateHandle: string
+        Cursor: Cursor
+        DateTime: string
+        EncryptableDateTime: string
+        EncryptableMarkdown: string
+        EncryptableString: string
+        EncryptableTxHash: string
+        EncryptableURI: string
+        EncryptedPath: string
+        EncryptedValue: string
+        Ens: string
+        EvmAddress: EvmAddress
+        Handle: string
+        ImageSizeTransform: ImageSizeTransform
+        Jwt: string
+        LimitScalar: number
+        Locale: string
+        Markdown: string
+        MimeType: string
+        MomokaId: string
+        MomokaProof: string
+        NftGalleryId: string
+        NftGalleryName: string
+        Nonce: number
+        OnchainPublicationId: string
+        PoapEventId: string
+        ProfileId: ProfileId
+        PublicationId: PublicationId
+        Signature: string
+        TokenId: string
+        TxHash: string
+        TxId: string
+        UnixTimestamp: number
+        URI: URI
+        URL: URL
+        UUID: string
+        Void: void
+    schema:
+      - https://v2--digiv3rses-team.apollographos.net/graphql # testnet
+      # - http://localhost:4000/
+      - src/digi/graphql/client.graphql
+    documents:
+      - src/digi/graphql/*.graphql
+    plugins:
+      - 'typescript':
+          onlyOperationTypes: true # scalars and enums
+      - add:
+          content: [
+              '/** Code generated. DO NOT EDIT. */',
+              '/* eslint-disable import/no-default-export */', # generatedTypes default export
+              '/* eslint-disable @typescript-eslint/ban-types */', # needed by unions with {}
+              '/* eslint-disable @typescript-eslint/no-explicit-any */', # see extensive use of FieldPolicy<any> | FieldReadFunction<any>
+              '/* eslint-disable @typescript-eslint/naming-convention */', # interface PossibleTypesResultData not starting with I
+              '/* eslint-disable no-restricted-imports */', # import * from @apollo/client
+              '/* eslint-disable tsdoc/syntax */',
+              "import type { AppId, ProfileId, PublicationId } from '@digiv3rse/domain/entities';",
+              "import type { EvmAddress, URL, URI } from '@digiv3rse/shared-kernel';",
+              "import type { ContentEncryptionKey } from '../ContentEncryptionKey';",
+              "import type { Cursor } from '../Cursor';",
+              "import type { ImageSizeTransform } from '../ImageTransform';",
+            ]
+      - 'typescript-operations':
+          skipTypename: true
+          immutableTypes: false
+          inlineFragmentTypes: combine
+          exportFragmentSpreadSubTypes: false # we do not want odd named fragment types ProfilePicture_ImageSet_
+          omitOperationSuffix: true
+          operationResultSuffix: 'Data'
+          dedupeFragments: true
+      - 'typescript-react-apollo':
+          pureMagicComment: true # keep
+          omitOperationSuffix: true # MUST goes with typescript-operations.omitOperationSuffix
+          operationResultSuffix: 'Data' # goes with typescript-operations.operationResultSuffix
+          fragmentVariablePrefix: Fragment # because FragmentDoc suffix is removed by omitOperationSuffix we need to add a prefix to differentiate fragment types from fragment documents
+          documentMode: documentNode
+      - 'typescript-apollo-client-helpers'
+      - 'fragment-matcher'

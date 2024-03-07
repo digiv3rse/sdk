@@ -1,0 +1,148 @@
+fragment ReactionEvent on ReactionEvent {
+  by {
+    ...Profile
+  }
+  reaction
+  createdAt
+}
+
+fragment FeedItem on FeedItem {
+  id
+  root {
+    ... on Post {
+      ...Post
+    }
+    ... on Comment {
+      ...Comment
+    }
+    ... on Quote {
+      ...Quote
+    }
+  }
+  mirrors {
+    ...Mirror
+  }
+  reactions {
+    ...ReactionEvent
+  }
+  comments {
+    ...Comment
+  }
+}
+
+query Feed(
+  $request: FeedRequest!
+  $publicationImageSmallTransform: ImageTransform!
+  $publicationImageMediumTransform: ImageTransform!
+  $publicationOperationsActedArgs: PublicationOperationsActedArgs
+  $publicationStatsInput: PublicationStatsInput!
+  $publicationStatsCountOpenActionArgs: PublicationStatsCountOpenActionArgs!
+  $profileCoverTransform: ImageTransform!
+  $profilePictureTransform: ImageTransform!
+  $profileStatsArg: ProfileStatsArg
+  $profileStatsCountOpenActionArgs: ProfileStatsCountOpenActionArgs
+  $profileMetadataSource: AppId = null
+  $rateRequest: RateRequest!
+) {
+  result: feed(request: $request) {
+    items {
+      ...FeedItem
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}
+
+query FeedHighlights(
+  $request: FeedHighlightsRequest!
+  $publicationImageSmallTransform: ImageTransform!
+  $publicationImageMediumTransform: ImageTransform!
+  $publicationOperationsActedArgs: PublicationOperationsActedArgs
+  $publicationStatsInput: PublicationStatsInput!
+  $publicationStatsCountOpenActionArgs: PublicationStatsCountOpenActionArgs!
+  $profileCoverTransform: ImageTransform!
+  $profilePictureTransform: ImageTransform!
+  $profileStatsArg: ProfileStatsArg
+  $profileStatsCountOpenActionArgs: ProfileStatsCountOpenActionArgs
+  $profileMetadataSource: AppId = null
+  $rateRequest: RateRequest!
+) {
+  result: feedHighlights(request: $request) {
+    items {
+      ... on Post {
+        ...Post
+      }
+      ... on Quote {
+        ...Quote
+      }
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}
+
+fragment LatestActed on LatestActed {
+  profile {
+    ...Profile
+  }
+  actedAt
+  txHash
+}
+
+fragment FollowPaidAction on FollowPaidAction {
+  __typename
+  latestActed {
+    ...LatestActed
+  }
+  followed {
+    ...Profile
+  }
+}
+
+fragment OpenActionPaidAction on OpenActionPaidAction {
+  __typename
+  latestActed {
+    ...LatestActed
+  }
+  actedOn {
+    ... on Post {
+      ...Post
+    }
+    ... on Comment {
+      ...Comment
+    }
+    ... on Quote {
+      ...Quote
+    }
+  }
+}
+
+query LatestPaidActions(
+  $publicationImageSmallTransform: ImageTransform!
+  $publicationImageMediumTransform: ImageTransform!
+  $publicationOperationsActedArgs: PublicationOperationsActedArgs
+  $publicationStatsInput: PublicationStatsInput!
+  $publicationStatsCountOpenActionArgs: PublicationStatsCountOpenActionArgs!
+  $profileCoverTransform: ImageTransform!
+  $profilePictureTransform: ImageTransform!
+  $profileStatsArg: ProfileStatsArg
+  $profileStatsCountOpenActionArgs: ProfileStatsCountOpenActionArgs
+  $profileMetadataSource: AppId = null
+  $rateRequest: RateRequest!
+) {
+  result: latestPaidActions {
+    items {
+      ... on FollowPaidAction {
+        ...FollowPaidAction
+      }
+      ... on OpenActionPaidAction {
+        ...OpenActionPaidAction
+      }
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

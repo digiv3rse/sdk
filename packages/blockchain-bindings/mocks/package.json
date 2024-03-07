@@ -1,0 +1,5 @@
+{
+  "type": "module",
+  "main": "dist/digiv3rse-blockchain-bindings-mocks.cjs.js",
+  "module": "dist/digiv3rse-blockchain-bindings-mocks.esm.js"
+}

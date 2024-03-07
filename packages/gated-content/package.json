@@ -1,0 +1,127 @@
+{
+  "name": "@digiv3rse/gated-content",
+  "version": "0.4.0-alpha.22",
+  "description": "Token-gated content for the Lens Protocol",
+  "main": "dist/digiv3rse-gated-content.cjs.js",
+  "module": "dist/digiv3rse-gated-content.esm.js",
+  "exports": {
+    ".": {
+      "module": "./dist/digiv3rse-gated-content.esm.js",
+      "default": "./dist/digiv3rse-gated-content.cjs.js"
+    },
+    "./web": {
+      "module": "./web/dist/digiv3rse-gated-content-web.esm.js",
+      "default": "./web/dist/digiv3rse-gated-content-web.cjs.js"
+    },
+    "./environments": {
+      "module": "./environments/dist/digiv3rse-gated-content-environments.esm.js",
+      "default": "./environments/dist/digiv3rse-gated-content-environments.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "repository": {
+    "directory": "packages/gated-content",
+    "type": "git",
+    "url": "git://github.com/digiv3rse/sdk.git"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "environments",
+    "web"
+  ],
+  "scripts": {
+    "build": "preconstruct build",
+    "eslint:fix": "pnpm run eslint --fix",
+    "eslint": "eslint src",
+    "generate": "graphql-codegen",
+    "lint": "pnpm run prettier && pnpm run eslint && pnpm run tsc",
+    "lint:fix": "pnpm run prettier:fix && pnpm run eslint:fix && pnpm run tsc",
+    "prettier:fix": "prettier --write .",
+    "prettier": "prettier --check .",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "tsc": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@digiv3rse/shared-kernel": "workspace:*",
+    "@digiv3rse/storage": "workspace:*",
+    "@lit-protocol/constants": "2.1.62",
+    "@lit-protocol/crypto": "2.1.62",
+    "@lit-protocol/encryption": "2.1.62",
+    "@lit-protocol/node-client": "^2.1.62",
+    "@lit-protocol/types": "2.1.62",
+    "siwe": "^2.1.4",
+    "traverse": "^0.6.7",
+    "tslib": "^2.6.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/address": "^5.7.0",
+    "@ethersproject/bignumber": "^5.7.0",
+    "@ethersproject/contracts": "^5.7.0",
+    "@ethersproject/hash": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
+    "@ethersproject/wallet": "^5.7.0",
+    "@faker-js/faker": "^7.6.0",
+    "@graphql-codegen/cli": "^3.3.1",
+    "@graphql-codegen/typescript": "^3.0.4",
+    "@jest/globals": "^29.7.0",
+    "@digiv3rse/eslint-config": "workspace:*",
+    "@digiv3rse/metadata": "https://github.com/digiv3rse/metadata",
+    "@digiv3rse/prettier-config": "workspace:*",
+    "@digiv3rse/tsconfig": "workspace:*",
+    "@types/jest": "^29.5.10",
+    "@types/jest-when": "^3.5.5",
+    "@types/node": "^18.18.12",
+    "@types/traverse": "^0.6.35",
+    "eslint": "^8.54.0",
+    "ethers": "^5.7.2",
+    "graphql": "^16.8.1",
+    "jest": "^29.7.0",
+    "jest-mock-extended": "^3.0.5",
+    "jest-when": "^3.6.0",
+    "prettier": "^2.8.8",
+    "ts-jest": "^29.1.1",
+    "typescript": "5.2.2",
+    "wait-for-expect": "^3.0.2",
+    "zod": "^3.22.4"
+  },
+  "peerDependencies": {
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/address": "^5.7.0",
+    "@ethersproject/bignumber": "^5.7.0",
+    "@ethersproject/contracts": "^5.7.0",
+    "@ethersproject/hash": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
+    "@ethersproject/wallet": "^5.7.0",
+    "@digiv3rse/metadata": "workspace:*",
+    "zod": "^3.22.0"
+  },
+  "prettier": "@digiv3rse/prettier-config",
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-typescript"
+    ]
+  },
+  "preconstruct": {
+    "entrypoints": [
+      "index.ts",
+      "environments.ts",
+      "web/index.ts"
+    ],
+    "exports": true
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "react"
+      ]
+    }
+  }
+}

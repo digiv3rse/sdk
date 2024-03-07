@@ -1,0 +1,1968 @@
+# query fragments
+fragment OptimisticStatusResult on OptimisticStatusResult {
+  __typename
+  value
+  isFinalisedOnchain
+}
+
+fragment Erc20 on Erc20 {
+  __typename
+  name
+  symbol
+  decimals
+  contract {
+    ...NetworkAddress
+  }
+}
+
+fragment FiatAmount on FiatAmount {
+  __typename
+  asset {
+    ...Fiat
+  }
+  value
+}
+
+fragment Fiat on Fiat {
+  __typename
+  name
+  symbol
+  decimals
+}
+
+fragment Amount on Amount {
+  __typename
+  asset {
+    ...Erc20
+  }
+  value
+  rate(request: $rateRequest) {
+    ...FiatAmount
+  }
+}
+
+fragment FeeFollowModuleSettings on FeeFollowModuleSettings {
+  __typename
+  amount {
+    ...Amount
+  }
+  contract {
+    ...NetworkAddress
+  }
+  recipient
+}
+
+fragment RevertFollowModuleSettings on RevertFollowModuleSettings {
+  __typename
+  contract {
+    ...NetworkAddress
+  }
+}
+
+fragment UnknownFollowModuleSettings on UnknownFollowModuleSettings {
+  __typename
+  contract {
+    ...NetworkAddress
+  }
+  initializeCalldata
+  initializeResultData
+  signlessApproved
+  sponsoredApproved
+  verified
+}
+
+fragment NetworkAddress on NetworkAddress {
+  __typename
+  address
+  chainId
+}
+
+# media
+fragment Image on Image {
+  __typename
+  uri
+  mimeType
+  width
+  height
+}
+
+fragment ImageSet on ImageSet {
+  __typename
+  raw {
+    ...Image
+  }
+  optimized {
+    ...Image
+  }
+  small: transformed(request: $publicationImageSmallTransform) {
+    ...Image
+  }
+  medium: transformed(request: $publicationImageMediumTransform) {
+    ...Image
+  }
+}
+
+fragment EncryptableImage on EncryptableImage {
+  __typename
+  uri
+  mimeType
+  width
+  height
+}
+
+fragment EncryptableImageSet on EncryptableImageSet {
+  __typename
+  raw {
+    ...EncryptableImage
+  }
+  optimized {
+    ...Image
+  }
+}
+
+fragment Video on Video {
+  __typename
+  uri
+  mimeType
+}
+
+fragment EncryptableVideo on EncryptableVideo {
+  __typename
+  mimeType
+  uri
+}
+
+fragment EncryptableVideoSet on EncryptableVideoSet {
+  __typename
+  raw {
+    ...EncryptableVideo
+  }
+  optimized {
+    ...Video
+  }
+}
+
+fragment Audio on Audio {
+  __typename
+  uri
+  mimeType
+}
+
+fragment EncryptableAudio on EncryptableAudio {
+  __typename
+  mimeType
+  uri
+}
+
+fragment EncryptableAudioSet on EncryptableAudioSet {
+  __typename
+  raw {
+    ...EncryptableAudio
+  }
+  optimized {
+    ...Audio
+  }
+}
+
+# profile
+fragment ProfileCoverSet on ImageSet {
+  __typename
+  raw {
+    ...Image
+  }
+  optimized {
+    ...Image
+  }
+  transformed(request: $profileCoverTransform) {
+    ...Image
+  }
+}
+
+fragment ProfilePictureSet on ImageSet {
+  __typename
+  raw {
+    ...Image
+  }
+  optimized {
+    ...Image
+  }
+  thumbnail: transformed(request: $profilePictureTransform) {
+    ...Image
+  }
+}
+
+fragment NftImage on NftImage {
+  __typename
+  collection {
+    ...NetworkAddress
+  }
+  tokenId
+  image {
+    ...ProfilePictureSet
+  }
+  verified
+}
+
+fragment ProfileMetadata on ProfileMetadata {
+  __typename
+  appId
+  displayName
+  bio
+  rawURI
+  picture {
+    ... on ImageSet {
+      ...ProfilePictureSet
+    }
+    ... on NftImage {
+      ...NftImage
+    }
+  }
+  coverPicture {
+    ...ProfileCoverSet
+  }
+  attributes {
+    type
+    key
+    value
+  }
+}
+
+fragment ProfileStats on ProfileStats {
+  id
+  followers
+  following
+  comments
+  posts
+  mirrors
+  quotes
+  publications
+  upvotes: reactions(request: { type: UPVOTE })
+  downvotes: reactions(request: { type: DOWNVOTE })
+  upvoted: reacted(request: { type: UPVOTE })
+  downvoted: reacted(request: { type: DOWNVOTE })
+  collects: countOpenActions(request: { anyOf: [{ category: COLLECT }] })
+  countOpenActions(request: $profileStatsCountOpenActionArgs)
+  lensClassifierScore
+}
+
+fragment HandleInfo on HandleInfo {
+  __typename
+  id
+  fullHandle
+  namespace
+  localName
+  suggestedFormatted {
+    full
+    localName
+  }
+  linkedTo {
+    contract {
+      ...NetworkAddress
+    }
+    nftTokenId
+  }
+  ownedBy
+}
+
+fragment Profile on Profile {
+  __typename
+  id
+  ownedBy {
+    ...NetworkAddress
+  }
+  txHash
+  createdAt
+  operations {
+    __typename
+    id
+    isBlockedByMe {
+      ...OptimisticStatusResult
+    }
+    isFollowedByMe {
+      ...OptimisticStatusResult
+    }
+    isFollowingMe {
+      ...OptimisticStatusResult
+    }
+    canBlock
+    canUnblock
+    canFollow
+    canUnfollow
+  }
+  interests
+  guardian {
+    protected
+    cooldownEndsOn
+  }
+  invitesLeft
+  onchainIdentity {
+    proofOfHumanity
+    ens {
+      name
+    }
+    sybilDotOrg {
+      verified
+      source {
+        twitter {
+          handle
+        }
+      }
+    }
+    worldcoin {
+      isHuman
+    }
+  }
+  followNftAddress {
+    ...NetworkAddress
+  }
+  followModule {
+    ... on FeeFollowModuleSettings {
+      ...FeeFollowModuleSettings
+    }
+    ... on RevertFollowModuleSettings {
+      ...RevertFollowModuleSettings
+    }
+    ... on UnknownFollowModuleSettings {
+      ...UnknownFollowModuleSettings
+    }
+  }
+  metadata(request: { appId: $profileMetadataSource, useFallback: true }) {
+    ...ProfileMetadata
+  }
+  handle {
+    ...HandleInfo
+  }
+  sponsor
+  signless
+  invitedBy {
+    id
+  }
+  stats(request: $profileStatsArg) {
+    ...ProfileStats
+  }
+  peerToPeerRecommendedByMe
+}
+
+fragment ProfileMentioned on ProfileMentioned {
+  profile {
+    id
+  }
+  snapshotHandleMentioned {
+    ...HandleInfo
+  }
+  stillOwnsHandle
+}
+
+fragment PaginatedResultInfo on PaginatedResultInfo {
+  prev
+  next
+}
+
+fragment App on App {
+  __typename
+  id
+}
+
+fragment MomokaInfo on MomokaInfo {
+  __typename
+  proof
+}
+
+# reference modules
+fragment FollowOnlyReferenceModuleSettings on FollowOnlyReferenceModuleSettings {
+  __typename
+  contract {
+    ...NetworkAddress
+  }
+}
+
+fragment DegreesOfSeparationReferenceModuleSettings on DegreesOfSeparationReferenceModuleSettings {
+  __typename
+  contract {
+    ...NetworkAddress
+  }
+  commentsRestricted
+  mirrorsRestricted
+  degreesOfSeparation
+}
+
+fragment UnknownReferenceModuleSettings on UnknownReferenceModuleSettings {
+  __typename
+  contract {
+    ...NetworkAddress
+  }
+  initializeCalldata
+  initializeResultData
+  signlessApproved
+  sponsoredApproved
+  verified
+}
+
+# open action modules
+fragment SimpleCollectOpenActionSettings on SimpleCollectOpenActionSettings {
+  __typename
+  type
+  contract {
+    ...NetworkAddress
+  }
+  collectNft
+  amount {
+    ...Amount
+  }
+  recipient
+  referralFee
+  followerOnly
+  collectLimit
+  endsAt
+}
+
+fragment MultirecipientFeeCollectOpenActionSettings on MultirecipientFeeCollectOpenActionSettings {
+  __typename
+  type
+  contract {
+    ...NetworkAddress
+  }
+  collectNft
+  amount {
+    ...Amount
+  }
+  recipients {
+    __typename
+    recipient
+    split
+  }
+  referralFee
+  followerOnly
+  collectLimit
+  endsAt
+}
+
+fragment UnknownOpenActionModuleSettings on UnknownOpenActionModuleSettings {
+  __typename
+  type
+  contract {
+    ...NetworkAddress
+  }
+  collectNft
+  initializeCalldata
+  initializeResultData
+  signlessApproved
+  sponsoredApproved
+  verified
+}
+
+fragment LegacyFreeCollectModuleSettings on LegacyFreeCollectModuleSettings {
+  __typename
+  type
+  contract {
+    ...NetworkAddress
+  }
+  collectNft
+  followerOnly
+}
+
+fragment LegacyFeeCollectModuleSettings on LegacyFeeCollectModuleSettings {
+  __typename
+  type
+  contract {
+    ...NetworkAddress
+  }
+  collectNft
+  amount {
+    ...Amount
+  }
+  recipient
+  referralFee
+  followerOnly
+}
+
+fragment LegacyLimitedFeeCollectModuleSettings on LegacyLimitedFeeCollectModuleSettings {
+  __typename
+  type
+  contract {
+    ...NetworkAddress
+  }
+  collectNft
+  collectLimit
+  amount {
+    ...Amount
+  }
+  recipient
+  referralFee
+  followerOnly
+}
+
+fragment LegacyLimitedTimedFeeCollectModuleSettings on LegacyLimitedTimedFeeCollectModuleSettings {
+  __typename
+  type
+  contract {
+    ...NetworkAddress
+  }
+  collectNft
+  collectLimit
+  amount {
+    ...Amount
+  }
+  recipient
+  referralFee
+  followerOnly
+  endTimestamp
+}
+
+fragment LegacyRevertCollectModuleSettings on LegacyRevertCollectModuleSettings {
+  __typename
+  type
+  contract {
+    ...NetworkAddress
+  }
+}
+
+fragment LegacyTimedFeeCollectModuleSettings on LegacyTimedFeeCollectModuleSettings {
+  __typename
+  type
+  contract {
+    ...NetworkAddress
+  }
+  collectNft
+  amount {
+    ...Amount
+  }
+  recipient
+  referralFee
+  followerOnly
+  endTimestamp
+}
+
+fragment LegacyMultirecipientFeeCollectModuleSettings on LegacyMultirecipientFeeCollectModuleSettings {
+  __typename
+  type
+  contract {
+    ...NetworkAddress
+  }
+  collectNft
+  amount {
+    ...Amount
+  }
+  recipients {
+    recipient
+    split
+  }
+  referralFee
+  followerOnly
+  collectLimit
+  endsAt
+}
+
+fragment LegacySimpleCollectModuleSettings on LegacySimpleCollectModuleSettings {
+  __typename
+  type
+  contract {
+    ...NetworkAddress
+  }
+  collectNft
+  amount {
+    ...Amount
+  }
+  recipient
+  referralFee
+  followerOnly
+  collectLimit
+  endsAt
+}
+
+fragment LegacyERC4626FeeCollectModuleSettings on LegacyERC4626FeeCollectModuleSettings {
+  __typename
+  type
+  contract {
+    ...NetworkAddress
+  }
+  vault {
+    ...NetworkAddress
+  }
+  amount {
+    ...Amount
+  }
+  recipient
+  referralFee
+  followerOnly
+  collectLimit
+  endsAt
+}
+
+fragment LegacyAaveFeeCollectModuleSettings on LegacyAaveFeeCollectModuleSettings {
+  __typename
+  type
+  contract {
+    ...NetworkAddress
+  }
+  amount {
+    ...Amount
+  }
+  recipient
+  referralFee
+  followerOnly
+  collectLimit
+  endsAt
+}
+
+fragment UnknownOpenActionResult on UnknownOpenActionResult {
+  __typename
+  address
+  category
+  initReturnData
+}
+
+fragment KnownCollectOpenActionResult on KnownCollectOpenActionResult {
+  __typename
+  type
+}
+
+fragment OpenActionResult on OpenActionResult {
+  ... on KnownCollectOpenActionResult {
+    ...KnownCollectOpenActionResult
+  }
+  ... on UnknownOpenActionResult {
+    ...UnknownOpenActionResult
+  }
+}
+
+fragment CanDecryptResponse on CanDecryptResponse {
+  __typename
+  result
+  reasons
+  extraDetails
+}
+
+fragment PublicationOperations on PublicationOperations {
+  __typename
+  id
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct(request: $publicationOperationsActedArgs)
+  hasActed(request: $publicationOperationsActedArgs) {
+    ...OptimisticStatusResult
+  }
+  actedOn(request: $publicationOperationsActedArgs) {
+    ...OpenActionResult
+  }
+  canCollect: canAct(request: { filter: { category: COLLECT } })
+  hasCollected: hasActed(request: { filter: { category: COLLECT } }) {
+    ...OptimisticStatusResult
+  }
+  hasUpvoted: hasReacted(request: { type: UPVOTE })
+  hasDownvoted: hasReacted(request: { type: DOWNVOTE })
+  canComment
+  canMirror
+  canQuote
+  hasQuoted
+  hasMirrored
+  canDecrypt {
+    ...CanDecryptResponse
+  }
+}
+
+# gated content
+fragment PublicationMetadataLitEncryption on PublicationMetadataLitEncryption {
+  __typename
+  encryptionKey
+  accessCondition {
+    ...RootCondition
+  }
+  encryptedPaths
+}
+
+fragment NftOwnershipCondition on NftOwnershipCondition {
+  __typename
+  contract {
+    ...NetworkAddress
+  }
+  contractType
+  tokenIds
+}
+
+fragment Erc20OwnershipCondition on Erc20OwnershipCondition {
+  __typename
+  amount {
+    ...Amount
+  }
+  condition
+}
+
+fragment EoaOwnershipCondition on EoaOwnershipCondition {
+  __typename
+  address
+}
+
+fragment ProfileOwnershipCondition on ProfileOwnershipCondition {
+  __typename
+  profileId
+}
+
+fragment FollowCondition on FollowCondition {
+  __typename
+  follow
+}
+
+fragment CollectCondition on CollectCondition {
+  __typename
+  publicationId
+  thisPublication
+}
+
+fragment AndCondition on AndCondition {
+  __typename
+  criteria {
+    ... on NftOwnershipCondition {
+      ...NftOwnershipCondition
+    }
+    ... on Erc20OwnershipCondition {
+      ...Erc20OwnershipCondition
+    }
+    ... on EoaOwnershipCondition {
+      ...EoaOwnershipCondition
+    }
+    ... on ProfileOwnershipCondition {
+      ...ProfileOwnershipCondition
+    }
+    ... on FollowCondition {
+      ...FollowCondition
+    }
+    ... on CollectCondition {
+      ...CollectCondition
+    }
+    ... on AdvancedContractCondition {
+      ...AdvancedContractCondition
+    }
+  }
+}
+
+fragment OrCondition on OrCondition {
+  __typename
+  criteria {
+    ... on NftOwnershipCondition {
+      ...NftOwnershipCondition
+    }
+    ... on Erc20OwnershipCondition {
+      ...Erc20OwnershipCondition
+    }
+    ... on EoaOwnershipCondition {
+      ...EoaOwnershipCondition
+    }
+    ... on ProfileOwnershipCondition {
+      ...ProfileOwnershipCondition
+    }
+    ... on FollowCondition {
+      ...FollowCondition
+    }
+    ... on CollectCondition {
+      ...CollectCondition
+    }
+    ... on AdvancedContractCondition {
+      ...AdvancedContractCondition
+    }
+  }
+}
+
+fragment AdvancedContractCondition on AdvancedContractCondition {
+  __typename
+  contract {
+    ...NetworkAddress
+  }
+  functionName
+  abi
+  params
+  comparison
+  value
+}
+
+fragment RootCondition on RootCondition {
+  __typename
+  criteria {
+    ... on NftOwnershipCondition {
+      ...NftOwnershipCondition
+    }
+    ... on Erc20OwnershipCondition {
+      ...Erc20OwnershipCondition
+    }
+    ... on EoaOwnershipCondition {
+      ...EoaOwnershipCondition
+    }
+    ... on ProfileOwnershipCondition {
+      ...ProfileOwnershipCondition
+    }
+    ... on FollowCondition {
+      ...FollowCondition
+    }
+    ... on CollectCondition {
+      ...CollectCondition
+    }
+    ... on AndCondition {
+      ...AndCondition
+    }
+    ... on OrCondition {
+      ...OrCondition
+    }
+    ... on AdvancedContractCondition {
+      ...AdvancedContractCondition
+    }
+  }
+}
+
+# publication metadata
+fragment PublicationMarketplaceMetadataAttribute on PublicationMarketplaceMetadataAttribute {
+  __typename
+  displayType
+  traitType
+  value
+}
+
+fragment MarketplaceMetadata on MarketplaceMetadata {
+  __typename
+  description
+  externalURL
+  name
+  attributes {
+    ...PublicationMarketplaceMetadataAttribute
+  }
+  image {
+    ...ImageSet
+  }
+  animationUrl
+}
+
+fragment PublicationMetadataMediaVideo on PublicationMetadataMediaVideo {
+  __typename
+  video {
+    ...EncryptableVideoSet
+  }
+  cover {
+    ...EncryptableImageSet
+  }
+  duration
+  license
+  altTag
+}
+
+fragment PublicationMetadataMediaImage on PublicationMetadataMediaImage {
+  __typename
+  image {
+    ...EncryptableImageSet
+  }
+  altTag
+  license
+}
+
+fragment PublicationMetadataMediaAudio on PublicationMetadataMediaAudio {
+  __typename
+  audio {
+    ...EncryptableAudioSet
+  }
+  cover {
+    ...EncryptableImageSet
+  }
+  duration
+  license
+  credits
+  artist
+  genre
+  recordLabel
+  lyrics
+}
+
+fragment GeoLocation on GeoLocation {
+  __typename
+  rawURI
+  latitude
+  longitude
+}
+
+fragment VideoMetadataV3 on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  asset {
+    ...PublicationMetadataMediaVideo
+  }
+  attachments {
+    ... on PublicationMetadataMediaVideo {
+      ...PublicationMetadataMediaVideo
+    }
+    ... on PublicationMetadataMediaImage {
+      ...PublicationMetadataMediaImage
+    }
+    ... on PublicationMetadataMediaAudio {
+      ...PublicationMetadataMediaAudio
+    }
+  }
+  isShortVideo
+  title
+  content
+}
+
+fragment AudioMetadataV3 on AudioMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  asset {
+    ...PublicationMetadataMediaAudio
+  }
+  attachments {
+    ... on PublicationMetadataMediaVideo {
+      ...PublicationMetadataMediaVideo
+    }
+    ... on PublicationMetadataMediaImage {
+      ...PublicationMetadataMediaImage
+    }
+    ... on PublicationMetadataMediaAudio {
+      ...PublicationMetadataMediaAudio
+    }
+  }
+  title
+  content
+}
+
+fragment ImageMetadataV3 on ImageMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  title
+  content
+  asset {
+    ...PublicationMetadataMediaImage
+  }
+  attachments {
+    ... on PublicationMetadataMediaVideo {
+      ...PublicationMetadataMediaVideo
+    }
+    ... on PublicationMetadataMediaImage {
+      ...PublicationMetadataMediaImage
+    }
+    ... on PublicationMetadataMediaAudio {
+      ...PublicationMetadataMediaAudio
+    }
+  }
+}
+
+fragment ArticleMetadataV3 on ArticleMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  title
+  content
+  attachments {
+    ... on PublicationMetadataMediaVideo {
+      ...PublicationMetadataMediaVideo
+    }
+    ... on PublicationMetadataMediaImage {
+      ...PublicationMetadataMediaImage
+    }
+    ... on PublicationMetadataMediaAudio {
+      ...PublicationMetadataMediaAudio
+    }
+  }
+}
+
+fragment EventMetadataV3 on EventMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  geographic {
+    ...GeoLocation
+  }
+  startsAt
+  endsAt
+  links
+  location
+  attachments {
+    ... on PublicationMetadataMediaVideo {
+      ...PublicationMetadataMediaVideo
+    }
+    ... on PublicationMetadataMediaImage {
+      ...PublicationMetadataMediaImage
+    }
+    ... on PublicationMetadataMediaAudio {
+      ...PublicationMetadataMediaAudio
+    }
+  }
+}
+
+fragment LinkMetadataV3 on LinkMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  content
+  sharingLink
+  attachments {
+    ... on PublicationMetadataMediaVideo {
+      ...PublicationMetadataMediaVideo
+    }
+    ... on PublicationMetadataMediaImage {
+      ...PublicationMetadataMediaImage
+    }
+    ... on PublicationMetadataMediaAudio {
+      ...PublicationMetadataMediaAudio
+    }
+  }
+}
+
+fragment EmbedMetadataV3 on EmbedMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  content
+  embed
+  attachments {
+    ... on PublicationMetadataMediaVideo {
+      ...PublicationMetadataMediaVideo
+    }
+    ... on PublicationMetadataMediaImage {
+      ...PublicationMetadataMediaImage
+    }
+    ... on PublicationMetadataMediaAudio {
+      ...PublicationMetadataMediaAudio
+    }
+  }
+}
+
+fragment CheckingInMetadataV3 on CheckingInMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  content
+  location
+  geographic {
+    ...GeoLocation
+  }
+  attachments {
+    ... on PublicationMetadataMediaVideo {
+      ...PublicationMetadataMediaVideo
+    }
+    ... on PublicationMetadataMediaImage {
+      ...PublicationMetadataMediaImage
+    }
+    ... on PublicationMetadataMediaAudio {
+      ...PublicationMetadataMediaAudio
+    }
+  }
+}
+
+fragment TextOnlyMetadataV3 on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  content
+}
+
+fragment ThreeDMetadataV3Asset on ThreeDMetadataV3Asset {
+  __typename
+  uri
+  zipPath
+  playerURL
+  format
+  license
+}
+
+fragment ThreeDMetadataV3 on ThreeDMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  content
+  assets {
+    ...ThreeDMetadataV3Asset
+  }
+  attachments {
+    ... on PublicationMetadataMediaVideo {
+      ...PublicationMetadataMediaVideo
+    }
+    ... on PublicationMetadataMediaImage {
+      ...PublicationMetadataMediaImage
+    }
+    ... on PublicationMetadataMediaAudio {
+      ...PublicationMetadataMediaAudio
+    }
+  }
+}
+
+fragment StoryMetadataV3 on StoryMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  content
+  asset {
+    ... on PublicationMetadataMediaVideo {
+      ...PublicationMetadataMediaVideo
+    }
+    ... on PublicationMetadataMediaImage {
+      ...PublicationMetadataMediaImage
+    }
+    ... on PublicationMetadataMediaAudio {
+      ...PublicationMetadataMediaAudio
+    }
+  }
+}
+
+fragment TransactionMetadataV3 on TransactionMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  content
+  type
+  txHash
+  chainId
+  attachments {
+    ... on PublicationMetadataMediaVideo {
+      ...PublicationMetadataMediaVideo
+    }
+    ... on PublicationMetadataMediaImage {
+      ...PublicationMetadataMediaImage
+    }
+    ... on PublicationMetadataMediaAudio {
+      ...PublicationMetadataMediaAudio
+    }
+  }
+}
+
+fragment MintMetadataV3 on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  content
+  mintLink
+  attachments {
+    ... on PublicationMetadataMediaVideo {
+      ...PublicationMetadataMediaVideo
+    }
+    ... on PublicationMetadataMediaImage {
+      ...PublicationMetadataMediaImage
+    }
+    ... on PublicationMetadataMediaAudio {
+      ...PublicationMetadataMediaAudio
+    }
+  }
+}
+
+fragment SpaceMetadataV3 on SpaceMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  content
+  title
+  link
+  startsAt
+  attachments {
+    ... on PublicationMetadataMediaVideo {
+      ...PublicationMetadataMediaVideo
+    }
+    ... on PublicationMetadataMediaImage {
+      ...PublicationMetadataMediaImage
+    }
+    ... on PublicationMetadataMediaAudio {
+      ...PublicationMetadataMediaAudio
+    }
+  }
+}
+
+fragment LiveStreamMetadataV3 on LiveStreamMetadataV3 {
+  __typename
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadata
+  }
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  encryptedWith {
+    ... on PublicationMetadataLitEncryption {
+      ...PublicationMetadataLitEncryption
+    }
+  }
+  title
+  content
+  startsAt
+  endsAt
+  playbackURL
+  liveURL
+  checkLiveAPI
+  attachments {
+    ... on PublicationMetadataMediaVideo {
+      ...PublicationMetadataMediaVideo
+    }
+    ... on PublicationMetadataMediaImage {
+      ...PublicationMetadataMediaImage
+    }
+    ... on PublicationMetadataMediaAudio {
+      ...PublicationMetadataMediaAudio
+    }
+  }
+}
+
+# publication fragments
+fragment PublicationStats on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  bookmarks
+  upvotes: reactions(request: { type: UPVOTE })
+  downvotes: reactions(request: { type: DOWNVOTE })
+  collects: countOpenActions(request: { anyOf: [{ category: COLLECT }] })
+  countOpenActions(request: $publicationStatsCountOpenActionArgs)
+}
+
+fragment Post on Post {
+  __typename
+  id
+  publishedOn {
+    ...App
+  }
+  isHidden
+  momoka {
+    ...MomokaInfo
+  }
+  txHash
+  createdAt
+  isEncrypted
+  by {
+    ...Profile
+  }
+  stats(request: $publicationStatsInput) {
+    ...PublicationStats
+  }
+  operations {
+    ...PublicationOperations
+  }
+  metadata {
+    ... on AudioMetadataV3 {
+      ...AudioMetadataV3
+    }
+    ... on VideoMetadataV3 {
+      ...VideoMetadataV3
+    }
+    ... on ImageMetadataV3 {
+      ...ImageMetadataV3
+    }
+    ... on ArticleMetadataV3 {
+      ...ArticleMetadataV3
+    }
+    ... on EventMetadataV3 {
+      ...EventMetadataV3
+    }
+    ... on LinkMetadataV3 {
+      ...LinkMetadataV3
+    }
+    ... on EmbedMetadataV3 {
+      ...EmbedMetadataV3
+    }
+    ... on CheckingInMetadataV3 {
+      ...CheckingInMetadataV3
+    }
+    ... on TextOnlyMetadataV3 {
+      ...TextOnlyMetadataV3
+    }
+    ... on ThreeDMetadataV3 {
+      ...ThreeDMetadataV3
+    }
+    ... on StoryMetadataV3 {
+      ...StoryMetadataV3
+    }
+    ... on TransactionMetadataV3 {
+      ...TransactionMetadataV3
+    }
+    ... on MintMetadataV3 {
+      ...MintMetadataV3
+    }
+    ... on SpaceMetadataV3 {
+      ...SpaceMetadataV3
+    }
+    ... on LiveStreamMetadataV3 {
+      ...LiveStreamMetadataV3
+    }
+  }
+  openActionModules {
+    ... on LegacyFreeCollectModuleSettings {
+      ...LegacyFreeCollectModuleSettings
+    }
+    ... on LegacyFeeCollectModuleSettings {
+      ...LegacyFeeCollectModuleSettings
+    }
+    ... on LegacyLimitedFeeCollectModuleSettings {
+      ...LegacyLimitedFeeCollectModuleSettings
+    }
+    ... on LegacyLimitedTimedFeeCollectModuleSettings {
+      ...LegacyLimitedTimedFeeCollectModuleSettings
+    }
+    ... on LegacyRevertCollectModuleSettings {
+      ...LegacyRevertCollectModuleSettings
+    }
+    ... on LegacyTimedFeeCollectModuleSettings {
+      ...LegacyTimedFeeCollectModuleSettings
+    }
+    ... on LegacyMultirecipientFeeCollectModuleSettings {
+      ...LegacyMultirecipientFeeCollectModuleSettings
+    }
+    ... on LegacySimpleCollectModuleSettings {
+      ...LegacySimpleCollectModuleSettings
+    }
+    ... on LegacyERC4626FeeCollectModuleSettings {
+      ...LegacyERC4626FeeCollectModuleSettings
+    }
+    ... on LegacyAaveFeeCollectModuleSettings {
+      ...LegacyAaveFeeCollectModuleSettings
+    }
+    ... on MultirecipientFeeCollectOpenActionSettings {
+      ...MultirecipientFeeCollectOpenActionSettings
+    }
+    ... on SimpleCollectOpenActionSettings {
+      ...SimpleCollectOpenActionSettings
+    }
+    ... on UnknownOpenActionModuleSettings {
+      ...UnknownOpenActionModuleSettings
+    }
+  }
+  referenceModule {
+    ... on FollowOnlyReferenceModuleSettings {
+      ...FollowOnlyReferenceModuleSettings
+    }
+    ... on DegreesOfSeparationReferenceModuleSettings {
+      ...DegreesOfSeparationReferenceModuleSettings
+    }
+    ... on UnknownReferenceModuleSettings {
+      ...UnknownReferenceModuleSettings
+    }
+  }
+  profilesMentioned {
+    ...ProfileMentioned
+  }
+  hashtagsMentioned
+}
+
+fragment CommentBase on Comment {
+  __typename
+  id
+  publishedOn {
+    ...App
+  }
+  isHidden
+  hiddenByAuthor
+  momoka {
+    ...MomokaInfo
+  }
+  txHash
+  createdAt
+  isEncrypted
+  by {
+    ...Profile
+  }
+  operations {
+    ...PublicationOperations
+  }
+  metadata {
+    ... on AudioMetadataV3 {
+      ...AudioMetadataV3
+    }
+    ... on VideoMetadataV3 {
+      ...VideoMetadataV3
+    }
+    ... on ImageMetadataV3 {
+      ...ImageMetadataV3
+    }
+    ... on ArticleMetadataV3 {
+      ...ArticleMetadataV3
+    }
+    ... on EventMetadataV3 {
+      ...EventMetadataV3
+    }
+    ... on LinkMetadataV3 {
+      ...LinkMetadataV3
+    }
+    ... on EmbedMetadataV3 {
+      ...EmbedMetadataV3
+    }
+    ... on CheckingInMetadataV3 {
+      ...CheckingInMetadataV3
+    }
+    ... on TextOnlyMetadataV3 {
+      ...TextOnlyMetadataV3
+    }
+    ... on ThreeDMetadataV3 {
+      ...ThreeDMetadataV3
+    }
+    ... on StoryMetadataV3 {
+      ...StoryMetadataV3
+    }
+    ... on TransactionMetadataV3 {
+      ...TransactionMetadataV3
+    }
+    ... on MintMetadataV3 {
+      ...MintMetadataV3
+    }
+    ... on SpaceMetadataV3 {
+      ...SpaceMetadataV3
+    }
+    ... on LiveStreamMetadataV3 {
+      ...LiveStreamMetadataV3
+    }
+  }
+  openActionModules {
+    ... on LegacyFreeCollectModuleSettings {
+      ...LegacyFreeCollectModuleSettings
+    }
+    ... on LegacyFeeCollectModuleSettings {
+      ...LegacyFeeCollectModuleSettings
+    }
+    ... on LegacyLimitedFeeCollectModuleSettings {
+      ...LegacyLimitedFeeCollectModuleSettings
+    }
+    ... on LegacyLimitedTimedFeeCollectModuleSettings {
+      ...LegacyLimitedTimedFeeCollectModuleSettings
+    }
+    ... on LegacyRevertCollectModuleSettings {
+      ...LegacyRevertCollectModuleSettings
+    }
+    ... on LegacyTimedFeeCollectModuleSettings {
+      ...LegacyTimedFeeCollectModuleSettings
+    }
+    ... on LegacyMultirecipientFeeCollectModuleSettings {
+      ...LegacyMultirecipientFeeCollectModuleSettings
+    }
+    ... on LegacySimpleCollectModuleSettings {
+      ...LegacySimpleCollectModuleSettings
+    }
+    ... on LegacyERC4626FeeCollectModuleSettings {
+      ...LegacyERC4626FeeCollectModuleSettings
+    }
+    ... on LegacyAaveFeeCollectModuleSettings {
+      ...LegacyAaveFeeCollectModuleSettings
+    }
+    ... on MultirecipientFeeCollectOpenActionSettings {
+      ...MultirecipientFeeCollectOpenActionSettings
+    }
+    ... on SimpleCollectOpenActionSettings {
+      ...SimpleCollectOpenActionSettings
+    }
+    ... on UnknownOpenActionModuleSettings {
+      ...UnknownOpenActionModuleSettings
+    }
+  }
+  referenceModule {
+    ... on FollowOnlyReferenceModuleSettings {
+      ...FollowOnlyReferenceModuleSettings
+    }
+    ... on DegreesOfSeparationReferenceModuleSettings {
+      ...DegreesOfSeparationReferenceModuleSettings
+    }
+    ... on UnknownReferenceModuleSettings {
+      ...UnknownReferenceModuleSettings
+    }
+  }
+}
+
+fragment Comment on Comment {
+  ...CommentBase
+  profilesMentioned {
+    ...ProfileMentioned
+  }
+  hashtagsMentioned
+  root {
+    ...Post
+  }
+  commentOn {
+    ... on Post {
+      ...Post
+    }
+    ... on Comment {
+      ...CommentBase
+    }
+    ... on Quote {
+      ...QuoteBase
+    }
+  }
+  firstComment {
+    ...CommentBase
+  }
+  stats(request: $publicationStatsInput) {
+    ...PublicationStats
+  }
+}
+
+fragment Mirror on Mirror {
+  __typename
+  id
+  publishedOn {
+    ...App
+  }
+  isHidden
+  momoka {
+    ...MomokaInfo
+  }
+  txHash
+  createdAt
+  by {
+    ...Profile
+  }
+  mirrorOn {
+    ... on Post {
+      ...Post
+    }
+    ... on Comment {
+      ...Comment
+    }
+    ... on Quote {
+      ...Quote
+    }
+  }
+}
+
+fragment QuoteBase on Quote {
+  __typename
+  id
+  publishedOn {
+    ...App
+  }
+  isHidden
+  momoka {
+    ...MomokaInfo
+  }
+  txHash
+  createdAt
+  isEncrypted
+  by {
+    ...Profile
+  }
+  operations {
+    ...PublicationOperations
+  }
+  metadata {
+    ... on AudioMetadataV3 {
+      ...AudioMetadataV3
+    }
+    ... on VideoMetadataV3 {
+      ...VideoMetadataV3
+    }
+    ... on ImageMetadataV3 {
+      ...ImageMetadataV3
+    }
+    ... on ArticleMetadataV3 {
+      ...ArticleMetadataV3
+    }
+    ... on EventMetadataV3 {
+      ...EventMetadataV3
+    }
+    ... on LinkMetadataV3 {
+      ...LinkMetadataV3
+    }
+    ... on EmbedMetadataV3 {
+      ...EmbedMetadataV3
+    }
+    ... on CheckingInMetadataV3 {
+      ...CheckingInMetadataV3
+    }
+    ... on TextOnlyMetadataV3 {
+      ...TextOnlyMetadataV3
+    }
+    ... on ThreeDMetadataV3 {
+      ...ThreeDMetadataV3
+    }
+    ... on StoryMetadataV3 {
+      ...StoryMetadataV3
+    }
+    ... on TransactionMetadataV3 {
+      ...TransactionMetadataV3
+    }
+    ... on MintMetadataV3 {
+      ...MintMetadataV3
+    }
+    ... on SpaceMetadataV3 {
+      ...SpaceMetadataV3
+    }
+    ... on LiveStreamMetadataV3 {
+      ...LiveStreamMetadataV3
+    }
+  }
+  openActionModules {
+    ... on LegacyFreeCollectModuleSettings {
+      ...LegacyFreeCollectModuleSettings
+    }
+    ... on LegacyFeeCollectModuleSettings {
+      ...LegacyFeeCollectModuleSettings
+    }
+    ... on LegacyLimitedFeeCollectModuleSettings {
+      ...LegacyLimitedFeeCollectModuleSettings
+    }
+    ... on LegacyLimitedTimedFeeCollectModuleSettings {
+      ...LegacyLimitedTimedFeeCollectModuleSettings
+    }
+    ... on LegacyRevertCollectModuleSettings {
+      ...LegacyRevertCollectModuleSettings
+    }
+    ... on LegacyTimedFeeCollectModuleSettings {
+      ...LegacyTimedFeeCollectModuleSettings
+    }
+    ... on LegacyMultirecipientFeeCollectModuleSettings {
+      ...LegacyMultirecipientFeeCollectModuleSettings
+    }
+    ... on LegacySimpleCollectModuleSettings {
+      ...LegacySimpleCollectModuleSettings
+    }
+    ... on LegacyERC4626FeeCollectModuleSettings {
+      ...LegacyERC4626FeeCollectModuleSettings
+    }
+    ... on LegacyAaveFeeCollectModuleSettings {
+      ...LegacyAaveFeeCollectModuleSettings
+    }
+    ... on MultirecipientFeeCollectOpenActionSettings {
+      ...MultirecipientFeeCollectOpenActionSettings
+    }
+    ... on SimpleCollectOpenActionSettings {
+      ...SimpleCollectOpenActionSettings
+    }
+    ... on UnknownOpenActionModuleSettings {
+      ...UnknownOpenActionModuleSettings
+    }
+  }
+  referenceModule {
+    ... on FollowOnlyReferenceModuleSettings {
+      ...FollowOnlyReferenceModuleSettings
+    }
+    ... on DegreesOfSeparationReferenceModuleSettings {
+      ...DegreesOfSeparationReferenceModuleSettings
+    }
+    ... on UnknownReferenceModuleSettings {
+      ...UnknownReferenceModuleSettings
+    }
+  }
+}
+
+fragment Quote on Quote {
+  ...QuoteBase
+  profilesMentioned {
+    ...ProfileMentioned
+  }
+  hashtagsMentioned
+  quoteOn {
+    ... on Post {
+      ...Post
+    }
+    ... on Comment {
+      ...CommentBase
+    }
+    ... on Quote {
+      ...QuoteBase
+    }
+  }
+  stats(request: $publicationStatsInput) {
+    ...PublicationStats
+  }
+}
+
+# mutation fragments
+fragment EIP712TypedDataDomain on EIP712TypedDataDomain {
+  name
+  chainId
+  version
+  verifyingContract
+}
+
+fragment EIP712TypedDataField on EIP712TypedDataField {
+  name
+  type
+}
+
+fragment RelaySuccess on RelaySuccess {
+  __typename
+  txHash
+  txId
+}
+
+fragment RelayError on RelayError {
+  __typename
+  reason
+}
+
+fragment LensProfileManagerRelayError on LensProfileManagerRelayError {
+  __typename
+  reason
+}
+
+fragment CreateMomokaPublicationResult on CreateMomokaPublicationResult {
+  __typename
+  id
+  proof
+  momokaId
+}

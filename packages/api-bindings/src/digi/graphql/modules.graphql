@@ -1,0 +1,44 @@
+query Currencies($limit: LimitType, $cursor: Cursor) {
+  result: currencies(request: { limit: $limit, cursor: $cursor }) {
+    items {
+      ...Erc20
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}
+
+fragment ModuleMetadata on ModuleMetadata {
+  __typename
+  attributes {
+    __typename
+    type
+    key
+    value
+  }
+  authors
+  description
+  initializeCalldataABI
+  initializeResultDataABI
+  name
+  processCalldataABI
+  title
+}
+
+fragment ModuleMetadataResult on GetModuleMetadataResult {
+  __typename
+  metadata {
+    ...ModuleMetadata
+  }
+  moduleType
+  signlessApproved
+  sponsoredApproved
+  verified
+}
+
+query ModuleMetadata($request: ModuleMetadataRequest!) {
+  result: moduleMetadata(request: $request) {
+    ...ModuleMetadataResult
+  }
+}

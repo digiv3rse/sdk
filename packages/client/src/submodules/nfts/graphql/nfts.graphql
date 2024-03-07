@@ -1,0 +1,159 @@
+fragment Owner on Owner {
+  amount
+  address
+}
+
+fragment NftCollection on NftCollection {
+  contract {
+    ...NetworkAddress
+  }
+  name
+  symbol
+  baseUri
+  contractType
+  verified
+}
+
+fragment NftMetadata on NftMetadata {
+  name
+  description
+  image {
+    raw {
+      ...Image
+    }
+    optimized {
+      ...Image
+    }
+  }
+}
+
+fragment Nft on Nft {
+  tokenId
+  owner {
+    ...Owner
+  }
+  contentURI
+  contract {
+    ...NetworkAddress
+  }
+  contractType
+  collection {
+    ...NftCollection
+  }
+  metadata {
+    ...NftMetadata
+  }
+}
+
+fragment NftGallery on NftGallery {
+  id
+  name
+  createdAt
+  updatedAt
+  items {
+    ...Nft
+  }
+}
+
+fragment NftCollectionWithOwners on NftCollectionWithOwners {
+  collection {
+    ...NftCollection
+  }
+  totalOwners
+}
+
+# queries
+query Nfts($request: NftsRequest!) {
+  result: nfts(request: $request) {
+    items {
+      ...Nft
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}
+
+query NftGalleries($request: NftGalleriesRequest!) {
+  result: nftGalleries(request: $request) {
+    items {
+      ...NftGallery
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}
+
+query NftCollectionOwners(
+  $request: NftCollectionOwnersRequest!
+  $profileCoverTransform: ImageTransform!
+  $profilePictureTransform: ImageTransform!
+  $profileStatsArg: ProfileStatsArg
+  $profileStatsCountOpenActionArgs: ProfileStatsCountOpenActionArgs
+  $profileMetadataSource: AppId = null
+  $rateRequest: RateRequest!
+) {
+  result: nftCollectionOwners(request: $request) {
+    items {
+      ...Profile
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}
+
+query NftCollections($request: NftCollectionsRequest!) {
+  result: nftCollections(request: $request) {
+    items {
+      ...NftCollection
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}
+
+query MutualNftCollections($request: MutualNftCollectionsRequest!) {
+  result: mutualNftCollections(request: $request) {
+    items {
+      ...NftCollection
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}
+
+query PopularNftCollections($request: PopularNftCollectionsRequest!) {
+  result: popularNftCollections(request: $request) {
+    items {
+      ...NftCollectionWithOwners
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}
+
+# mutations
+mutation CreateNFTGallery($request: NftGalleryCreateRequest!) {
+  result: createNftGallery(request: $request)
+}
+
+mutation UpdateNFTGalleryInfo($request: NftGalleryUpdateInfoRequest!) {
+  updateNftGalleryInfo(request: $request)
+}
+
+mutation UpdateNFTGalleryOrder($request: NftGalleryUpdateItemOrderRequest!) {
+  updateNftGalleryOrder(request: $request)
+}
+
+mutation UpdateNFTGalleryItems($request: NftGalleryUpdateItemsRequest!) {
+  updateNftGalleryItems(request: $request)
+}
+
+mutation DeleteNFTGallery($request: NftGalleryDeleteRequest!) {
+  deleteNftGallery(request: $request)
+}

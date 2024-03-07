@@ -1,0 +1,4 @@
+{
+  "main": "dist/digiv3rse-domain-use-cases-publications.cjs.js",
+  "module": "dist/digiv3rse-domain-use-cases-publications.esm.js"
+}

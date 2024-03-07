@@ -1,0 +1,4 @@
+{
+  "main": "dist/digiv3rse-domain-use-cases-profile.cjs.js",
+  "module": "dist/digiv3rse-domain-use-cases-profile.esm.js"
+}

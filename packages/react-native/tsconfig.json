@@ -1,0 +1,11 @@
+{
+  "extends": "@digiv3rse/tsconfig/base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "types": ["react-native", "jest"],
+    "lib": ["ESNext"],
+    "outDir": "dist"
+  },
+  "include": ["src", "./jest.config.ts"],
+  "exclude": [".eslintrc.cjs"]
+}

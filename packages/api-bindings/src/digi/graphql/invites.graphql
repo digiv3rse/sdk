@@ -1,0 +1,27 @@
+fragment InvitedResult on InvitedResult {
+  by
+  profileMinted {
+    ...Profile
+  }
+  when
+}
+
+query InvitedProfiles(
+  $profileCoverSize: ImageTransform!
+  $profilePictureSize: ImageTransform!
+  $statsFor: [AppId!]!
+  $fxRateFor: SupportedFiatType!
+  $profileMetadataSource: AppId
+) {
+  result: invitedProfiles {
+    ...InvitedResult
+  }
+}
+
+query ProfileAlreadyInvited($request: AlreadyInvitedCheckRequest!) {
+  result: profileAlreadyInvited(request: $request)
+}
+
+mutation Invite($request: InviteRequest!) {
+  invite(request: $request)
+}

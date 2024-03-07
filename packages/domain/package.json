@@ -1,0 +1,133 @@
+{
+  "name": "@digiv3rse/domain",
+  "version": "0.11.0-alpha.23",
+  "description": "Critical Business Rules and Application-specific Business Rules",
+  "exports": {
+    "./mocks": {
+      "module": "./mocks/dist/digiv3rse-domain-mocks.esm.js",
+      "default": "./mocks/dist/digiv3rse-domain-mocks.cjs.js"
+    },
+    "./entities": {
+      "module": "./entities/dist/digiv3rse-domain-entities.esm.js",
+      "default": "./entities/dist/digiv3rse-domain-entities.cjs.js"
+    },
+    "./use-cases/inbox": {
+      "module": "./use-cases/inbox/dist/digiv3rse-domain-use-cases-inbox.esm.js",
+      "default": "./use-cases/inbox/dist/digiv3rse-domain-use-cases-inbox.cjs.js"
+    },
+    "./use-cases/profile": {
+      "module": "./use-cases/profile/dist/digiv3rse-domain-use-cases-profile.esm.js",
+      "default": "./use-cases/profile/dist/digiv3rse-domain-use-cases-profile.cjs.js"
+    },
+    "./use-cases/wallets": {
+      "module": "./use-cases/wallets/dist/digiv3rse-domain-use-cases-wallets.esm.js",
+      "default": "./use-cases/wallets/dist/digiv3rse-domain-use-cases-wallets.cjs.js"
+    },
+    "./use-cases/publications": {
+      "module": "./use-cases/publications/dist/digiv3rse-domain-use-cases-publications.esm.js",
+      "default": "./use-cases/publications/dist/digiv3rse-domain-use-cases-publications.cjs.js"
+    },
+    "./use-cases/transactions": {
+      "module": "./use-cases/transactions/dist/digiv3rse-domain-use-cases-transactions.esm.js",
+      "default": "./use-cases/transactions/dist/digiv3rse-domain-use-cases-transactions.cjs.js"
+    },
+    "./use-cases/authentication": {
+      "module": "./use-cases/authentication/dist/digiv3rse-domain-use-cases-authentication.esm.js",
+      "default": "./use-cases/authentication/dist/digiv3rse-domain-use-cases-authentication.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "repository": {
+    "directory": "packages/domain",
+    "type": "git",
+    "url": "git://github.com/digiv3rse/sdk.git"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "entities",
+    "use-cases",
+    "mocks"
+  ],
+  "scripts": {
+    "build": "preconstruct build",
+    "eslint:fix": "pnpm run eslint --fix",
+    "eslint": "eslint src",
+    "lint": "pnpm run prettier && pnpm run eslint && pnpm run tsc",
+    "lint:fix": "pnpm run prettier:fix && pnpm run eslint:fix && pnpm run tsc",
+    "prettier:fix": "prettier --write .",
+    "prettier": "prettier --check .",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "tsc": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@digiv3rse/shared-kernel": "workspace:*",
+    "tslib": "^2.6.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@faker-js/faker": "^7.6.0",
+    "@jest/globals": "^29.7.0",
+    "@digiv3rse/eslint-config": "workspace:*",
+    "@digiv3rse/prettier-config": "workspace:*",
+    "@digiv3rse/tsconfig": "workspace:*",
+    "@types/jest": "^29.5.10",
+    "@types/jest-when": "^3.5.5",
+    "eslint": "^8.54.0",
+    "jest": "^29.7.0",
+    "jest-mock-extended": "^3.0.5",
+    "jest-when": "^3.6.0",
+    "prettier": "^2.8.8",
+    "ts-jest": "^29.1.1",
+    "typescript": "5.2.2",
+    "wait-for-expect": "^3.0.2"
+  },
+  "peerDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@jest/globals": "^29.7.0",
+    "jest-mock-extended": "^3.0.5",
+    "jest-when": "^3.6.0",
+    "wait-for-expect": "^3.0.2"
+  },
+  "peerDependenciesMeta": {
+    "@faker-js/faker": {
+      "optional": true
+    },
+    "@jest/globals": {
+      "optional": true
+    },
+    "jest-mock-extended": {
+      "optional": true
+    },
+    "jest-when": {
+      "optional": true
+    },
+    "wait-for-expect": {
+      "optional": true
+    }
+  },
+  "prettier": "@digiv3rse/prettier-config",
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-typescript"
+    ]
+  },
+  "preconstruct": {
+    "entrypoints": [
+      "entities/index.ts",
+      "use-cases/authentication/index.ts",
+      "use-cases/inbox/index.ts",
+      "use-cases/profile/index.ts",
+      "use-cases/publications/index.ts",
+      "use-cases/transactions/index.ts",
+      "use-cases/wallets/index.ts",
+      "mocks.ts"
+    ],
+    "exports": true
+  }
+}

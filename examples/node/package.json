@@ -1,0 +1,41 @@
+{
+  "name": "example-node",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "ts-node": "ts-node",
+    "eslint:fix": "pnpm run eslint --fix",
+    "eslint": "eslint scripts",
+    "lint": "pnpm run prettier && pnpm run eslint && pnpm run tsc",
+    "lint:fix": "pnpm run prettier:fix && pnpm run eslint:fix && pnpm run tsc",
+    "prettier:fix": "prettier --write .",
+    "prettier": "prettier --check .",
+    "tsc": "tsc --noEmit",
+    "typechain": "typechain --target ethers-v5 --out-dir ./contracts './abi/*.json'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@bundlr-network/client": "^0.11.17",
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
+    "@digiv3rse/client": "workspace:*",
+    "@digiv3rse/metadata": "https://github.com/digiv3rse/metadata",
+    "dotenv": "^16.3.1",
+    "ethers": "^5.7.2",
+    "typechain": "^8.3.2",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@digiv3rse/eslint-config": "workspace:*",
+    "@digiv3rse/prettier-config": "workspace:*",
+    "@types/node": "^18.18.12",
+    "@types/uuid": "^9.0.7",
+    "prettier": "^2.8.8",
+    "ts-node": "^10.9.2",
+    "typescript": "5.2.2"
+  },
+  "prettier": "@digiv3rse/prettier-config"
+}

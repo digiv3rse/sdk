@@ -1,0 +1,28 @@
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+coverage
+
+dist
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+.pnpm-debug.log*
+
+# turbo
+.turbo
+
+# Jetbrains
+.idea
+
+# env vars
+.env
+
+# documentation
+docs

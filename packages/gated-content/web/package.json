@@ -1,0 +1,4 @@
+{
+  "main": "dist/digiv3rse-gated-content-web.cjs.js",
+  "module": "dist/digiv3rse-gated-content-web.esm.js"
+}
