@@ -1,0 +1,1 @@
+export type ContentEncryptionKey = string;

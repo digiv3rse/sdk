@@ -1,0 +1,56 @@
+import { ProfileId } from '@digiv3rse/domain/entities';
+import { Erc20Amount } from '@digiv3rse/shared-kernel';
+import { ContentEncryptionKey } from '../ContentEncryptionKey';
+import { FollowPolicy } from '../FollowPolicy';
+import { AnyConditionOutput, Attribute, CollectConditionOutput, Comment, DataAvailabilityPublicationResult, EnabledModule, EnabledModules, EncryptedFieldsOutput, EncryptionParamsOutput, EoaOwnershipOutput, Erc20AmountFields, Erc20OwnershipOutput, FeedItem, FollowConditionOutput, LeafConditionOutput, Media, MetadataOutput, Mirror, ModuleInfo, NftOwnershipOutput, PaginatedResultInfo, Post, Profile, ProfileFollowRevenue, ProfileOwnershipOutput, ProfileStats, PublicationRevenue, PublicationStats, RelayerResult, RelayError, RelayErrorReasons, Wallet, WhoReactedResult } from '../generated';
+import { AnyPublication, CollectModule, ProfileCoverMedia, ProfileOwnedByMe, ProfilePictureMedia } from '../utils';
+export declare function mockMediaFragment(overrides?: Partial<Media>): Media;
+export declare function mockProfilePictureMediaFragment(overrides?: Partial<ProfilePictureMedia>): ProfilePictureMedia;
+export declare function mockProfileCoverPictureMediaFragment(overrides?: Partial<ProfileCoverMedia>): ProfileCoverMedia;
+export declare function mockAttributeFragment(overrides?: Partial<Attribute>): Attribute;
+export declare function mockAnyoneFollowPolicy(): FollowPolicy;
+export declare function mockWalletFragment(): Wallet;
+export declare function mockProfileStatsFragment(overrides?: Partial<ProfileStats>): ProfileStats;
+export declare function mockProfileFragment(overrides?: Partial<Profile>): Profile;
+export declare function mockProfileOwnedByMeFragment(overrides?: Partial<Profile>): ProfileOwnedByMe;
+export declare function mockRelayerResultFragment(txHash?: string): RelayerResult;
+export declare function mockRelayErrorFragment(reason: RelayErrorReasons): RelayError;
+export declare function mockDataAvailabilityPublicationResult(): DataAvailabilityPublicationResult;
+export declare function mockPublicationStatsFragment(overrides?: Partial<PublicationStats>): PublicationStats;
+export declare function mockEncryptedFieldsOutputFragment(overrides?: Partial<EncryptedFieldsOutput>): EncryptedFieldsOutput;
+export declare function mockFreeCollectModuleSettings({ followerOnly }?: {
+    followerOnly?: boolean | undefined;
+}): CollectModule;
+export declare function mockNotYetKnownCollectModuleSettings(): CollectModule;
+export declare function mockMetadataOutputFragment(overrides?: Partial<MetadataOutput>): MetadataOutput;
+export declare function mockPostFragment(overrides?: Partial<Omit<Post, '__typename'>>): Post;
+export declare function mockCommentFragment(overrides?: Partial<Omit<Comment, '__typename'>>): Comment;
+export declare function mockMirrorFragment(overrides?: Partial<Omit<Mirror, '__typename'>>): Mirror;
+export declare function mockFeedItemFragment(overrides?: Partial<FeedItem>): FeedItem;
+export declare function mockErc20AmountFieldsFragment(amount?: import("@digiv3rse/shared-kernel").Amount<import("@digiv3rse/shared-kernel/dist/declarations/src/crypto/Asset").Erc20>): Erc20AmountFields;
+export declare function mockPublicationRevenueFragment({ publication, amount, }?: {
+    publication?: AnyPublication;
+    amount?: Erc20Amount;
+}): PublicationRevenue;
+export declare function mockProfileFollowRevenueFragment({ amount, }?: {
+    amount?: Erc20Amount;
+}): ProfileFollowRevenue;
+export declare function mockWhoReactedResultFragment(overrides?: Partial<Omit<WhoReactedResult, '__typename'>>): WhoReactedResult;
+export declare function mockModuleInfoFragment(overrides?: Partial<Omit<ModuleInfo, '__typename'>>): ModuleInfo;
+export declare function mockEnabledModuleFragment(overrides?: Partial<Omit<EnabledModule, '__typename'>>): EnabledModule;
+export declare function mockEnabledModulesFragment(overrides?: Partial<Omit<EnabledModules, '__typename'>>): EnabledModules;
+export declare function mockNftOwnershipAccessCondition(overrides?: Partial<NftOwnershipOutput>): AnyConditionOutput;
+export declare function mockErc20OwnershipAccessCondition(overrides?: Partial<Erc20OwnershipOutput>): AnyConditionOutput;
+export declare function mockEoaOwnershipAccessCondition(overrides?: Partial<EoaOwnershipOutput>): AnyConditionOutput;
+export declare function mockProfileOwnershipAccessCondition(overrides?: Partial<ProfileOwnershipOutput>): AnyConditionOutput;
+export declare function mockFollowConditionAccessCondition(overrides?: Partial<FollowConditionOutput>): AnyConditionOutput;
+export declare function mockCollectConditionAccessCondition(condition?: Omit<CollectConditionOutput, '__typename'>): AnyConditionOutput;
+export declare function mockOrAccessCondition(criteria?: Array<AnyConditionOutput | LeafConditionOutput>): AnyConditionOutput;
+export declare function mockAndAccessCondition(criteria?: Array<AnyConditionOutput | LeafConditionOutput>): AnyConditionOutput;
+export declare function mockEncryptionParamsOutputFragment({ others, ownerId, encryptedFields, encryptionKey, }: {
+    others: AnyConditionOutput[];
+    ownerId: ProfileId;
+    encryptedFields?: EncryptedFieldsOutput;
+    encryptionKey?: ContentEncryptionKey;
+}): EncryptionParamsOutput;
+export declare function mockPaginatedResultInfo(overrides?: Partial<PaginatedResultInfo>): PaginatedResultInfo;

@@ -1,0 +1,2 @@
+export * from "../../../dist/declarations/src/use-cases/profile/index";
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGlnaXYzcnNlLWRvbWFpbi11c2UtY2FzZXMtcHJvZmlsZS5janMuZC50cyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL2Rpc3QvZGVjbGFyYXRpb25zL3NyYy91c2UtY2FzZXMvcHJvZmlsZS9pbmRleC5kLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBIn0=

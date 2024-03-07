@@ -1,6 +1,6 @@
 import {
   createAuthApolloClient,
-  createLensApolloClient,
+  createDiGiApolloClient,
   SafeApolloClient,
 } from '@digiv3rse/api-bindings';
 import { TransactionKind } from '@digiv3rse/domain/entities';
@@ -71,7 +71,7 @@ export function createSharedDependencies(userConfig: BaseConfig): SharedDependen
   const inboxKeyStorage = createInboxKeyStorage(config.storage, config.environment.name);
 
   // apollo client
-  const apolloClient = createLensApolloClient({
+  const apolloClient = createDiGiApolloClient({
     connectToDevTools: config.debug,
     uri: config.environment.backend,
     accessTokenStorage,

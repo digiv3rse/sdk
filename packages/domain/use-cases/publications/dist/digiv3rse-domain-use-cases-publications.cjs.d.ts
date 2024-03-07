@@ -1,0 +1,2 @@
+export * from "../../../dist/declarations/src/use-cases/publications/index";
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGlnaXYzcnNlLWRvbWFpbi11c2UtY2FzZXMtcHVibGljYXRpb25zLmNqcy5kLnRzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vZGlzdC9kZWNsYXJhdGlvbnMvc3JjL3VzZS1jYXNlcy9wdWJsaWNhdGlvbnMvaW5kZXguZC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSJ9
