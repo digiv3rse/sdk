@@ -9,7 +9,6 @@
   "type": "module",
   "scripts": {
     "build": "pnpm clean && turbo build",
-    "postinstall": "preconstruct dev",
     "clean": "rimraf packages/*/*/dist packages/*/dist",
     "test": "turbo run test --no-cache",
     "dev": "turbo dev",
