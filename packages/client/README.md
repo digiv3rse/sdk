@@ -1,20 +1,20 @@
-# Lens JavaScript SDK
+# DiGi JavaScript SDK
 
-The official framework-agnostic JavaScript SDK for Lens Protocol.
+The official framework-agnostic JavaScript SDK for DiGi Protocol.
 
 ---
 
-This package enables you to interact with the Lens API via a type safe interface that abstracts away some of the GraphQL intricacies.
+This package enables you to interact with the DiGi API via a type safe interface that abstracts away some of the GraphQL intricacies.
 
 ## Documentation
 
-- [GitHub monorepo](https://github.com/digiv3rse-protocol/sdk)
-- [Getting Started](https://docs.lens.xyz/docs/lensclient-sdk-1)
-- [Reference](https://digiv3rse-protocol.github.io/sdk/modules/_lens_protocol_client.html)
+- [GitHub monorepo](https://github.com/digiv3rse/sdk)
+- [Getting Started](https://docs.digiv3rse.xyz/docs/digiclient-sdk-1)
+- [Reference](https://digiv3rse.github.io/sdk/modules/_digiv3rse_client.html)
 
 ## Quick start
 
-Install the Lens React Native SDK package using your package manager of choice:
+Install the DiGi React Native SDK package using your package manager of choice:
 
 | Package Manager | Command                                    |
 | :-------------: | :----------------------------------------- |
@@ -25,9 +25,9 @@ Install the Lens React Native SDK package using your package manager of choice:
 Development configuration example:
 
 ```ts
-import { LensClient, development } from '@digiv3rse/client';
+import { DiGiClient, development } from '@digiv3rse/client';
 
-const client = new LensClient({
+const client = new DiGiClient({
   environment: development,
 });
 ```
@@ -35,9 +35,9 @@ const client = new LensClient({
 Production configuration example:
 
 ```ts
-import { LensClient, production } from '@digiv3rse/client';
+import { DiGiClient, production } from '@digiv3rse/client';
 
-const client = new LensClient({
+const client = new DiGiClient({
   environment: production,
 });
 ```
@@ -45,7 +45,7 @@ const client = new LensClient({
 In a browser-based implementation you can use the [Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API) to persist authentication state.
 
 ```ts
-const client = new LensClient({
+const client = new DiGiClient({
   environment: production,
 
   storage: window.localStorage,

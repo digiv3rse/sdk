@@ -21215,7 +21215,7 @@ packages:
   github.com/KimhabOrk/metadata/51f577ceb1bfc368fbf1483de1e96dfff5eed8e3(zod@3.22.4):
     resolution: {tarball: https://codeload.github.com/KimhabOrk/metadata/tar.gz/51f577ceb1bfc368fbf1483de1e96dfff5eed8e3}
     id: github.com/KimhabOrk/metadata/51f577ceb1bfc368fbf1483de1e96dfff5eed8e3
-    name: '@digiv3rse-protocol/metadata'
+    name: '@digiv3rse/metadata'
     version: 1.0.0
     engines: {node: ^v18.12.1}
     peerDependencies:
@@ -21231,7 +21231,7 @@ packages:
   github.com/digiv3rse/metadata/4fe7661dcc8b964cbbbdd6dae715827fd9a748a8(zod@3.22.4):
     resolution: {tarball: https://codeload.github.com/digiv3rse/metadata/tar.gz/4fe7661dcc8b964cbbbdd6dae715827fd9a748a8}
     id: github.com/digiv3rse/metadata/4fe7661dcc8b964cbbbdd6dae715827fd9a748a8
-    name: '@digiv3rse-protocol/metadata'
+    name: '@digiv3rse/metadata'
     version: 1.0.0
     engines: {node: ^v18.12.1}
     peerDependencies:

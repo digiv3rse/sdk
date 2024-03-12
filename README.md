@@ -17,7 +17,7 @@ All DiGi Protocol documentation, including this SDK documentation can be found a
 
 - [Introduction](https://docs.digiv3rse.xyz/docs/sdk-react-intro)
 - [Getting Started](https://docs.digiv3rse.xyz/docs/sdk-react-getting-started)
-- [Playground](https://digiv3rse-sdk-example-web-wagmi.vercel.app/)
+- [Playground](https://github.com/digiv3rse/examples/)
 
 ## Contributing
 
@@ -104,6 +104,16 @@ git push --follow-tags
 
 DiGi SDK is [MIT licensed](./LICENSE)
 
-## Support
-
-See the DiGi API and SDK channel on our [Discord](https://discord.gg/DiGiprotocol)
+                                 .''.
+       .''.             *''*    :_\/_:     . 
+      :_\/_:   .    .:.*_\/_*   : /\ :  .'.:.'.
+  .''.: /\ : _\(/_  ':'* /\ *  : '..'.  -=:o:=-
+ :_\/_:'.:::. /)\*''*  .|.* '.\'/.'_\(/_'.':'.'
+ : /\ : :::::  '*_\/_* | |  -= o =- /)\    '  *
+  '..'  ':::'   * /\ * |'|  .'/.\'.  '._____
+      *        __*..* |  |     :      |.   |' .---"|
+       _*   .-'   '-. |  |     .--'|  ||   | _|    |
+    .-'|  _.|  |    ||   '-__  |   |  |    ||      |
+    |' | |.    |    ||       | |   |  |    ||      |
+ ___|  '-'     '    ""       '-'   '-.'    '`      |____
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
