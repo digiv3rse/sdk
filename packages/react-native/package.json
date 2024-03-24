@@ -2,6 +2,7 @@
   "name": "@digiv3rse/react-native",
   "version": "0.1.0",
   "description": "Lens Protocol SDK for React Native",
+  "author": "digiv3rse<support@digiv3rse.xyz>",
   "main": "dist/digiv3rse-react-native.cjs.js",
   "module": "dist/digiv3rse-react-native.esm.js",
   "exports": {

@@ -2,6 +2,7 @@
   "name": "@digiv3rse/api-bindings",
   "version": "0.11.0",
   "description": "Graphql fragments, react hooks, typescript types of digiv3rse-sdk.git API.",
+  "author": "digiv3rse<support@digiv3rse.xyz>",
   "repository": {
     "directory": "packages/api-bindings",
     "type": "git",

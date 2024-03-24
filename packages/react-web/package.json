@@ -2,6 +2,7 @@
   "name": "@digiv3rse/react-web",
   "version": "2.0.0",
   "description": "Lens Protocol SDK for React web applications",
+  "author": "digiv3rse<support@digiv3rse.xyz>",
   "main": "dist/digiv3rse-react-web.cjs.js",
   "module": "dist/digiv3rse-react-web.esm.js",
   "exports": {

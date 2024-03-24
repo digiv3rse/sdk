@@ -104,8 +104,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/client
       '@digiv3rse/metadata':
-        specifier: https://github.com/digiv3rse/metadata
-        version: github.com/digiv3rse/metadata/4fe7661dcc8b964cbbbdd6dae715827fd9a748a8(zod@3.22.4)
+        specifier: 1.1.0
+        version: 1.1.0(zod@3.22.4)
       '@ethersproject/abi':
         specifier: ^5.7.0
         version: 5.7.0
@@ -158,8 +158,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/client
       '@digiv3rse/metadata':
-        specifier: https://github.com/digiv3rse/metadata
-        version: github.com/digiv3rse/metadata/4fe7661dcc8b964cbbbdd6dae715827fd9a748a8(zod@3.22.4)
+        specifier: 1.1.0
+        version: 1.1.0(zod@3.22.4)
       '@digiv3rse/react-web':
         specifier: workspace:*
         version: link:../../packages/react-web
@@ -480,8 +480,8 @@ importers:
         specifier: workspace:*
         version: link:../eslint-config
       '@digiv3rse/metadata':
-        specifier: https://github.com/digiv3rse/metadata
-        version: github.com/KimhabOrk/metadata/51f577ceb1bfc368fbf1483de1e96dfff5eed8e3(zod@3.22.4)
+        specifier: 1.1.0
+        version: 1.1.0(zod@3.22.4)
       '@digiv3rse/prettier-config':
         specifier: workspace:*
         version: link:../prettier-config
@@ -675,8 +675,8 @@ importers:
         specifier: workspace:*
         version: link:../eslint-config
       '@digiv3rse/metadata':
-        specifier: https://github.com/digiv3rse/metadata
-        version: github.com/KimhabOrk/metadata/51f577ceb1bfc368fbf1483de1e96dfff5eed8e3(zod@3.22.4)
+        specifier: 1.1.0
+        version: 1.1.0(zod@3.22.4)
       '@digiv3rse/prettier-config':
         specifier: workspace:*
         version: link:../prettier-config
@@ -3113,6 +3113,18 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
+
+  /@digiv3rse/metadata@1.1.0(zod@3.22.4):
+    resolution: {integrity: sha512-/sslQAF/l34IZOqMeOKAWEtbqZDVqX+N3F8mgzia2ciw5NAxOAatJuRJBkC4H/So5Lk3AlqpAKmQehFCOam2eQ==}
+    engines: {node: ^v18.12.1}
+    peerDependencies:
+      zod: ^3.22.3
+    peerDependenciesMeta:
+      zod:
+        optional: true
+    dependencies:
+      uuid: 9.0.1
+      zod: 3.22.4
 
   /@emotion/babel-plugin@11.11.0:
     resolution: {integrity: sha512-m4HEDZleaaCH+XgDDsPF15Ht6wTLsgDTeR3WYj9Q/k76JtWhrJjcP4+/XlG8LGT/Rol9qUfOIztXeA84ATpqPQ==}
@@ -21211,35 +21223,3 @@ packages:
       '@types/react': 18.2.61
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
-
-  github.com/KimhabOrk/metadata/51f577ceb1bfc368fbf1483de1e96dfff5eed8e3(zod@3.22.4):
-    resolution: {tarball: https://codeload.github.com/KimhabOrk/metadata/tar.gz/51f577ceb1bfc368fbf1483de1e96dfff5eed8e3}
-    id: github.com/KimhabOrk/metadata/51f577ceb1bfc368fbf1483de1e96dfff5eed8e3
-    name: '@digiv3rse/metadata'
-    version: 1.0.0
-    engines: {node: ^v18.12.1}
-    peerDependencies:
-      zod: ^3.22.3
-    peerDependenciesMeta:
-      zod:
-        optional: true
-    dependencies:
-      uuid: 9.0.1
-      zod: 3.22.4
-    dev: true
-
-  github.com/digiv3rse/metadata/4fe7661dcc8b964cbbbdd6dae715827fd9a748a8(zod@3.22.4):
-    resolution: {tarball: https://codeload.github.com/digiv3rse/metadata/tar.gz/4fe7661dcc8b964cbbbdd6dae715827fd9a748a8}
-    id: github.com/digiv3rse/metadata/4fe7661dcc8b964cbbbdd6dae715827fd9a748a8
-    name: '@digiv3rse/metadata'
-    version: 1.0.0
-    engines: {node: ^v18.12.1}
-    peerDependencies:
-      zod: ^3.22.3
-    peerDependenciesMeta:
-      zod:
-        optional: true
-    dependencies:
-      uuid: 9.0.1
-      zod: 3.22.4
-    dev: false

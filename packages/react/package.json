@@ -2,6 +2,7 @@
   "name": "@digiv3rse/react",
   "version": "2.0.0",
   "description": "Interacting with the Lens Protocol API using React.",
+  "author": "digiv3rse<support@digiv3rse.xyz>",
   "main": "dist/digiv3rse-react.cjs.js",
   "module": "dist/digiv3rse-react.esm.js",
   "exports": {

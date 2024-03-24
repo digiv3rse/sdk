@@ -1,7 +1,8 @@
 {
   "name": "@digiv3rse/blockchain-bindings",
-  "version": "0.10.0-alpha.24",
+  "version": "0.10.0",
   "description": "Utilities for interacting with the blockchain.",
+  "author": "digiv3rse<support@digiv3rse.xyz>",
   "repository": {
     "directory": "packages/blockchain-bindings",
     "type": "git",

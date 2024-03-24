@@ -21,7 +21,7 @@
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
     "@digiv3rse/client": "workspace:*",
-    "@digiv3rse/metadata": "https://github.com/digiv3rse/metadata",
+    "@digiv3rse/metadata": "1.1.0",
     "dotenv": "^16.3.1",
     "ethers": "^5.7.2",
     "typechain": "^8.3.2",

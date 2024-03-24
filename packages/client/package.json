@@ -1,7 +1,8 @@
 {
   "name": "@digiv3rse/client",
-  "version": "2.0.0-alpha.34",
+  "version": "2.0.0",
   "description": "Low level Lens API client",
+  "author": "digiv3rse<support@digiv3rse.xyz>",
   "repository": {
     "directory": "packages/client",
     "type": "git",
@@ -84,7 +85,7 @@
     "@graphql-codegen/typescript-graphql-request": "^5.0.0",
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@digiv3rse/eslint-config": "workspace:*",
-    "@digiv3rse/metadata": "https://github.com/digiv3rse/metadata",
+    "@digiv3rse/metadata": "1.1.0",
     "@digiv3rse/prettier-config": "workspace:*",
     "@digiv3rse/tsconfig": "workspace:*",
     "@types/jest": "^29.5.10",
@@ -114,7 +115,7 @@
     "exports": true
   },
   "peerDependencies": {
-    "@digiv3rse/metadata": "workspace"
+    "@digiv3rse/metadata": "1.1.0"
   },
   "peerDependenciesMeta": {
     "@digiv3rse/metadata": {

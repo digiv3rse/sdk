@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@ethersproject/shims": "^5.7.0",
-    "@digiv3rse/metadata": "https://github.com/digiv3rse/metadata",
+    "@digiv3rse/metadata": "1.1.0",
     "@digiv3rse/react-native": "link:../../packages/react-native",
     "ethers": "^5.7.2",
     "react": "^18.2.0",

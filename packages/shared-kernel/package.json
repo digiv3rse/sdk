@@ -2,6 +2,7 @@
   "name": "@digiv3rse/shared-kernel",
   "version": "0.11.0-alpha.11",
   "description": "Shared kernel",
+  "author": "digiv3rse<support@digiv3rse.xyz>",
   "repository": {
     "directory": "packages/shared-kernel",
     "type": "git",

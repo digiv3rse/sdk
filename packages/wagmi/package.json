@@ -2,6 +2,7 @@
   "name": "@digiv3rse/wagmi",
   "version": "0.2.0",
   "description": "wagmi bindings for @digiv3rse/react",
+  "author": "digiv3rse<support@digiv3rse.xyz>",
   "repository": {
     "directory": "packages/wagmi",
     "type": "git",

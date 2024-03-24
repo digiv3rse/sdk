@@ -72,7 +72,7 @@
     "@graphql-codegen/typescript": "^3.0.4",
     "@jest/globals": "^29.7.0",
     "@digiv3rse/eslint-config": "workspace:*",
-    "@digiv3rse/metadata": "https://github.com/digiv3rse/metadata",
+    "@digiv3rse/metadata": "1.1.0",
     "@digiv3rse/prettier-config": "workspace:*",
     "@digiv3rse/tsconfig": "workspace:*",
     "@types/jest": "^29.5.10",
